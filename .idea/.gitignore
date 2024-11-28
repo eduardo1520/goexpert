@@ -1,0 +1,24 @@
+# Go build artifacts
+/bin/
+/obj/
+*.exe
+*.out
+*.test
+
+# Dependency directories
+/vendor/
+
+# Go modules
+go.sum
+go.mod
+
+# Editor files
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log

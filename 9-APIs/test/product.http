@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI3NTk5MjQsInN1YiI6Ijk5N2ZhZDhjLTIxMWQtNDY5Yy05YmZjLWE2Y2ZmMjEwMWQyNSJ9.-ixCDPxU3jgkOYMNK3RHDzWEofO9SVUVR_aPrkjU5Kk
+
+POST {{baseUrl}}/products HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "My Product",
+  "price": 180.0
+}
+
+###
+
+GET {{baseUrl}}/products/1f6130b6-bd1a-4898-aaab-b083c2bb2598 HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+GET http://localhost:8000/products HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+PUT {{baseUrl}}/9bc3b3d4-480c-4193-9ccb-d38457d5847f HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "My Product Updated",
+  "price": 200.0
+}
+
+###
+
+DELETE {{baseUrl}}/products/9bc3b3d4-480c-4193-9ccb-d38457d5847f HTTP/1.1
+Authorization: Bearer {{token}}
