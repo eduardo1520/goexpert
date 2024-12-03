@@ -10,6 +10,19 @@ import (
 	"net/http"
 )
 
+// @title       Go Expert API Example
+// @version     1.0
+// @description Product API with authentication
+// @termsOfService http:swagger.io.terms/
+
+// @contact.name Eduardo Oliveira
+// @contact.email emiranda.dev@gmail.com
+
+// @host        localhost:8000
+// @BasePath    /
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})

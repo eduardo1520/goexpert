@@ -26,7 +26,7 @@ func LoadConfig(path string) (*conf, error) {
 	viper.SetConfigName("app_config")
 	viper.SetConfigType("env")
 	viper.AddConfigPath(path)
-	viper.SetConfigFile(".env")
+	viper.SetConfigFile("C:/Users/USER/Documents/Curso-GO/9-APIs/configs/.env")
 	viper.AutomaticEnv()
 	viper.SetDefault("JWT_EXPERIESIN", 300)
 	err := viper.ReadInConfig()

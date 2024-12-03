@@ -11,16 +11,31 @@ import (
 	"time"
 )
 
+type ErrorUser struct {
+	Message string `json:"message"`
+}
+
 type UserHandler struct {
 	UserDB database.UserInterface
 }
 
-func NewUserHandler(userDB database.UserInterface) *UserHandler {
+func NewUserHandler(db database.UserInterface) *UserHandler {
 	return &UserHandler{
-		UserDB: userDB,
+		UserDB: db,
 	}
 }
 
+// GetJWT godoc
+// @Summary      Gera um token JWT
+// @Description  Endpoint para autenticar um usuário e retornar um token JWT
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        request  body      dto.GetJWTInput   true  "user credentials"
+// @Success      200    {object} dto.GetJWTOutput
+// @Failure      404	{object} ErrorUser
+// @Failure      500    {object} ErrorUser
+// @Router       /users/generate_token [post]
 func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 	jwt := r.Context().Value("jwt").(*jwtauth.JWTAuth)
 	fmt.Printf("%+v", jwt)
@@ -59,10 +74,20 @@ func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(accessToken)
 }
 
+// Create  godoc
+// @Summary      Cria um novo usuário
+// @Description  Endpoint para criar um novo usuário na aplicação
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        request  body      dto.CreateUserInput  true  "user request"
+// @Success      201
+// @Failure      500 {object} ErrorUser
+// @Router       /users [post]
 func (h *UserHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var user dto.CreateUserInput
-
 	err := json.NewDecoder(r.Body).Decode(&user)
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return

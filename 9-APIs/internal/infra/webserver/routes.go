@@ -2,10 +2,12 @@ package webserver
 
 import (
 	"github.com/eduardo1520/goexpert/9-APIs/configs"
+	_ "github.com/eduardo1520/goexpert/9-APIs/docs"
 	"github.com/eduardo1520/goexpert/9-APIs/internal/infra/webserver/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func SetupRoutes(productHandler *handlers.ProductHandler, userHandler *handlers.UserHandler) chi.Router {
@@ -34,6 +36,8 @@ func SetupRoutes(productHandler *handlers.ProductHandler, userHandler *handlers.
 
 	r.Post("/users", userHandler.Create)
 	r.Post("/users/generate_token", userHandler.GetJWT)
+
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	return r
 
